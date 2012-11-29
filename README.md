@@ -1,4 +1,4 @@
 twitr
 =====
 
-twitr = as3 oop open source twitter api driven dynamic feed.
+as3 oop open source dynamic api driven twitter feed.
