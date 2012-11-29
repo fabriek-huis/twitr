@@ -24,6 +24,7 @@ package  com.sputn1k {
 		//// settings ////
 		
 		var screenname = "sputn1k";
+		var domain = "http://sputn1k.com/twitr/";
 		
 		//////////////////
 		
@@ -210,9 +211,9 @@ package  com.sputn1k {
 			var loc = ExternalInterface.call("window.location.href.toString");
 			
 			if(loc == null){
-				loc = ""; 
+				loc = "";
 			} else {
-				loc = "proxy.php?url=";
+				loc = domain+"proxy.php?url=";
 			}
 			
 			return loc;
