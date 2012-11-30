@@ -13,7 +13,7 @@ package  com.sputn1k {
 	import flash.text.*;
 	import flash.utils.*;
 	import fl.transitions.*;
-	import fl.transitions.Tween;
+	import fl.transitions.*;
 	import fl.transitions.easing.*;
 	import flash.geom.*;
 	import flash.external.*;
@@ -42,18 +42,23 @@ package  com.sputn1k {
 		private var header:Btn = new Btn();
 		private var scroller:Scroller = new Scroller();
 		
+		private var css:StyleSheet = new StyleSheet();			
 		private var tf:TextField = new TextField();
 		private var format:TextFormat = new TextFormat();
 		
 		private var debug:Boolean = true;
-		private var offset:Number = 55;
+		private var offset:Number = 77;
 		private var spacer:Number = 2;
+		private var offsetAdd:Number = offset;
 		private var date:Date = new Date();
 		private var cache:String = "?nocache="+date.getSeconds()+date.getMilliseconds();
 		
 		public function Twitr() {
 			
 			_instance = this;
+			
+			css.setStyle("a:link", {color:'#666666'});
+			css.setStyle("a:hover", {color:'#2F2F2F'});
 			
 			format.font = "Verdana";
 			format.color = 0x000000;
@@ -128,8 +133,8 @@ package  com.sputn1k {
 			if(num == 0){
 				//
 			} else {
-				box.y = offset+spacer;
-				offset = offset+55+spacer;
+				box.y = offsetAdd+spacer;
+				offsetAdd = offsetAdd+offset+spacer;
 			}
 			
 			copy = copy.split("&apos;").join("'");
@@ -137,8 +142,55 @@ package  com.sputn1k {
 			copy = copy.split("&gt;").join(">");
 			copy = copy.split("&lt;").join("<");
 			copy = copy.split("&amp;").join("&");
-			box.msg.text = copy;
+			
+			var ary:Array = copy.split(" ");
+			
+			function search(word:Object, arr:Array):void {
+				
+				var exists:Boolean = false;	
+				
+				for (var i:uint=0; i < arr.length; i++) {
+					
+					var index:int = arr[i].indexOf(word);
+			
+					if (index != -1) {
+						
+						switch (word){
 							
+							case "//":
+							arr[i] = "<a href='http:"+arr[i]+"' target='_blank'>http:"+arr[i]+"</a>";
+							var str = arr.toString();
+							str = str.split(",").join(" ");			
+							copy = str;
+							break;
+							
+							case "@":
+							arr[i] = "<a href='mailto:"+arr[i]+"'>"+arr[i]+"</a>";
+							str = arr.toString();
+							str = str.split(",").join(" ");
+							copy = str;
+							break;
+							
+							case "#":
+							arr[i] = "<a href='http://twitter.com/search?q="+arr[i].split("#").join("%23")+"&src=hash' target='_blank'>"+arr[i]+"</a>"; //%23						
+							str = arr.toString();
+							str = str.split(",").join(" ");
+							copy = str;
+							break;		
+						}
+						
+						trace("html = "+copy);
+					}
+				}
+			}
+			
+			search("//", ary);
+			search("@", ary);
+			search("#", ary);
+			
+			box.msg.styleSheet = css;
+			box.msg.htmlText = copy;
+			
 			date = date.split("+0000").join("");
 			date = date.slice(0, date.length-3);
 			box.date.text = date;

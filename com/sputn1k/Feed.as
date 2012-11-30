@@ -39,14 +39,10 @@ package com.sputn1k {
 				Twitr.instance.error("Error Loading Twitter Data.");
 			}
 			
-			function ns( value:XML ):XML {
-				return new XML( value.toXMLString().replace(/(xmlns(:\w*)?=\".*?\")/gim, "").replace(  /\w+:/gim, "" ));
-			}
-			
 			function complete(event:Event):void {
 				
 				xml = new XML(event.target.data);
-				xml = ns(xml);
+				xml = Twitr.instance.ns(xml);
 				Twitr.instance.output("xml= "+xml);
 				
 				for (var i:int = 0; i<xml.channel.item.length(); i++){
