@@ -21,10 +21,10 @@ switch ($ext) {
         $json = $filename;
        readfile($json);
         break;
-    default:
-       header('Content-Type: text/xml');
-       $xml = $filename;
+    case "xml":
+        header('Content-Type: text/xml');
+        $xml = $filename;
        readfile($xml);
-       break;
+        break;
 }
 ?>
