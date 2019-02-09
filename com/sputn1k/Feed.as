@@ -13,9 +13,9 @@ package com.sputn1k {
     public class Feed extends Sprite {
 
     	public function Feed(screenname) {
-			Twitr.instance.output("/////// Twitr - Feed init ///////");
-			init(Twitr.instance.loc()+"http://api.twitter.com/1/statuses/user_timeline.rss?screen_name="+screenname);
-		}
+		Twitr.instance.output("/////// Twitr - Feed init ///////");
+		init(Twitr.instance.loc()+"http://api.twitter.com/1/statuses/user_timeline.rss?screen_name="+screenname);
+	}
 
     	public function init(resource:String):void {
 			
