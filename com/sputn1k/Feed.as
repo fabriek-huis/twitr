@@ -8,7 +8,7 @@ package com.sputn1k {
     import flash.display.*;
     import flash.net.*;
     import flash.events.*;
-	import flash.text.*;
+    import flash.text.*;
 
     public class Feed extends Sprite {
 
@@ -24,6 +24,7 @@ package com.sputn1k {
 			
 			var xml:XML;
 			var loader:URLLoader = new URLLoader();
+			
     		var request:URLRequest = new URLRequest(resource);
 			
 			var offset:Number = 50;
